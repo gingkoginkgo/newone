@@ -30,16 +30,17 @@ public class POIService {
 				if(POIt == null)
 					break;
 				
-				String _name = j.getJSONArray("results").getJSONObject(i).getJSONObject("name").toString();
-				int g = 0;
+				Object _name = j.getJSONArray("results").getJSONObject(i).get("name");
+				String _lat = j.getJSONArray("results").getJSONObject(i).getJSONObject("geometry").getJSONObject("location").get("lat").toString();
+				String _lan = j.getJSONArray("results").getJSONObject(i).getJSONObject("geometry").getJSONObject("location").get("lng").toString();
+				
+				POI tmpPOI = new POI((String)_name,Double.parseDouble(_lat), Double.parseDouble(_lan));
+				_ret.add(tmpPOI);
 			}
-			
 		}
 		catch(Exception e){
 			e.getStackTrace();
 		}
-		
-	
 		return _ret;
 	}
 

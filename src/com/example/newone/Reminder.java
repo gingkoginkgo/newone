@@ -11,23 +11,23 @@ import android.webkit.WebViewClient;
 public class Reminder extends Activity {
 
 	private WebView ShowTargeMapForUser;
-	private String MAP_URL="http://www.google.com";
-	private String recive_resultLat;	
-	private String recive_resultLng;
-	
-	public String recive_resultLat() {
-		recive_resultLat = _result;
 
+	private double recive_resultLat;	
+	private double recive_resultLng;
+	private String MAP_URL;
+	public void recive_Location(double lat,double lan) 
+	{
+		
+		recive_resultLat = lat;
+		recive_resultLng = lan; 
+		
 	}
-	public String recive_resultLngt() {
-		recive_resultLat = _result;
 
-	}
 	
-	public String get_resultLat(){
+	public double get_resultLat(){
 		return recive_resultLat;
 	}
-	public String get_resultLng(){
+	public double get_resultLng(){
 		return recive_resultLng;
 	}
 	
@@ -41,6 +41,8 @@ public class Reminder extends Activity {
 	    ShowTargeMapForUser = (WebView)findViewById(R.id.webview);
 	    WebSettings webSettings = ShowTargeMapForUser.getSettings();
 	    ShowTargeMapForUser.getSettings().setJavaScriptEnabled(true); // 開啟JAVASCRIPT功能
+		MAP_URL="https://maps.google.com.tw";
+	    
 	    ShowTargeMapForUser.loadUrl(MAP_URL);
 	    
 	    

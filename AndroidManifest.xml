@@ -29,6 +29,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.newone.NewAddToDo" > </activity>
+        <activity android:name="com.example.newone.Reminder" > </activity>
         <service android:name=".posChecker"/>
         
         

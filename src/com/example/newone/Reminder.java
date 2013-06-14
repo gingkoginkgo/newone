@@ -1,6 +1,7 @@
 package com.example.newone;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebSettings;
@@ -12,42 +13,25 @@ public class Reminder extends Activity {
 
 	private WebView ShowTargeMapForUser;
 
-	private double recive_resultLat;	
-	private double recive_resultLng;
+	private String recive_resultLat;	
+	private String recive_resultLng;
 	private String MAP_URL;
-	public void recive_Location(double lat,double lan) 
-	{
-		
-		recive_resultLat = lat;
-		recive_resultLng = lan; 
-		
-	}
 
-	
-	public double get_resultLat(){
-		return recive_resultLat;
-	}
-	public double get_resultLng(){
-		return recive_resultLng;
-	}
-	
-	
-	
-	
+
 	@Override
 		protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	    setContentView(R.layout.showtargetmap);
+	    POI r = POIService.getInstance().getResultPOI();
+	    recive_resultLat = ""+r.getLat();
+	    recive_resultLng = ""+r.getLng();
 	    ShowTargeMapForUser = (WebView)findViewById(R.id.webview);
 	    WebSettings webSettings = ShowTargeMapForUser.getSettings();
 	    ShowTargeMapForUser.getSettings().setJavaScriptEnabled(true); // 開啟JAVASCRIPT功能
-		MAP_URL="https://maps.google.com.tw";
-	    
+		MAP_URL="https://maps.google.com.tw/maps?q="+recive_resultLat+","+recive_resultLng;
 	    ShowTargeMapForUser.loadUrl(MAP_URL);
-	    
-	    
-	    
-	  }  
-	}
+	  } 
+
+}
 	
 

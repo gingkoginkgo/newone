@@ -1,4 +1,4 @@
-//[¶}µo¼Ò¦¡:Singleton=>½T«O¥u¦³¤@¥÷]
+//[ï¿½}ï¿½oï¿½Ò¦ï¿½:Singleton=>ï¿½Tï¿½Oï¿½uï¿½ï¿½ï¿½@ï¿½ï¿½]
 
 package com.example.newone;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class ToDoManager {
     private static ToDoManager _instance = null; 
-    private ArrayList<ToDo> AllToDoListSavedInHere; //[ArrayList][ªx«¬(generic)]   
+    private ArrayList<ToDo> AllToDoListSavedInHere; //[ArrayList][ï¿½xï¿½ï¿½(generic)]   
    
     private ToDoManager() {  
     	AllToDoListSavedInHere = new ArrayList<ToDo>();	
@@ -18,18 +18,19 @@ public class ToDoManager {
         return _instance;
     }
  
-    //¨Ï¥ÎªÌ·s¼WªºToDo©ñ¨ì³oÃä¦s°_¨Ó
+    //ï¿½Ï¥ÎªÌ·sï¿½Wï¿½ï¿½ToDoï¿½ï¿½ï¿½oï¿½ï¿½sï¿½_ï¿½ï¿½
     public void addUserToDo(ToDo _todo){
+    	assert(_todo!=null);
     	AllToDoListSavedInHere.add(_todo);
     }
-    //±q³o§â¦s©ñµÛªº"¨Ï¥ÎªÌªºToDo"µ¹§R±¼
+    //ï¿½qï¿½oï¿½ï¿½sï¿½ï¿½Ûªï¿½"ï¿½Ï¥ÎªÌªï¿½ToDo"ï¿½ï¿½ï¿½Rï¿½ï¿½
     public void deleteUserToDo(ToDo _todo){
     	if(_todo==null)
     	{return;}
     	AllToDoListSavedInHere.remove(_todo);
     }
     
-  //±q³o§â¦s©ñµÛªº"¨Ï¥ÎªÌªºToDo"µ¹¨ú¥X
+  //ï¿½qï¿½oï¿½ï¿½sï¿½ï¿½Ûªï¿½"ï¿½Ï¥ÎªÌªï¿½ToDo"ï¿½ï¿½ï¿½ï¿½X
     public ArrayList<ToDo> getUserToDo(){
     	return AllToDoListSavedInHere;
     }

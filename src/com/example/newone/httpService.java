@@ -18,6 +18,7 @@ public class httpService {
 		_ret = "test";
 		return _ret;
 		
+		//下面先註解
 		/*
 		HttpClient client = new DefaultHttpClient();
 		HttpGet get = new HttpGet(url+"?"+value);

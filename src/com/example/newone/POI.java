@@ -1,5 +1,8 @@
 package com.example.newone;
 
+
+//position of  interest
+
 public class POI {
 	private String _name;
 	private double _lat;

@@ -15,11 +15,6 @@ public class httpService {
 
 	public String httpServiceGet(String url,String value){
 		String _ret = new String();
-		_ret = "test";
-		return _ret;
-		// I'm bit cat , I add somthing here
-		//in develop
-		/*
 		HttpClient client = new DefaultHttpClient();
 		HttpGet get = new HttpGet(url+"?"+value);
 		try {
@@ -40,6 +35,5 @@ public class httpService {
 			return"NOooooo \n check your url";
 		}
 		return _ret;
-		*/
 	}
 }

@@ -25,9 +25,19 @@ public class posChecker extends Service{
 		    _lat = location.getLatitude();
 		    _lon = location.getLongitude();
 		    POIService _ps = new POIService();
-		    ArrayList<POI> _result = _ps.getNearByPOIs(_lat, _lon, "food");
-		    if(_result.size() == 0)
-		    	return;
+		    ArrayList<ToDo> _todoList = ToDoManager.getInstance().getUserToDo();
+		    ArrayList<POI> _result = new ArrayList<POI>();
+		    for(ToDo t : _todoList){
+		    	ArrayList<POI> _resulttmp = _ps.getNearByPOIs(_lat, _lon, t.getTarget_Place());
+		    	if(_result.size() == 0)
+		    		return;
+		    	_result.addAll(_resulttmp);
+		    }
+		    
+		    //switch to reminder
+		    //set location to reminder
+		    _result.get(0).getLat();
+		    _result.get(0).getLng();
 		}
 
 		@Override

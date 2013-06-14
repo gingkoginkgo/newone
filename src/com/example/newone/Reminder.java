@@ -12,7 +12,28 @@ public class Reminder extends Activity {
 
 	private WebView ShowTargeMapForUser;
 	private String MAP_URL="http://www.google.com";
-		
+	private String recive_resultLat;	
+	private String recive_resultLng;
+	
+	public String recive_resultLat() {
+		recive_resultLat = _result;
+
+	}
+	public String recive_resultLngt() {
+		recive_resultLat = _result;
+
+	}
+	
+	public String get_resultLat(){
+		return recive_resultLat;
+	}
+	public String get_resultLng(){
+		return recive_resultLng;
+	}
+	
+	
+	
+	
 	@Override
 		protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -21,6 +42,9 @@ public class Reminder extends Activity {
 	    WebSettings webSettings = ShowTargeMapForUser.getSettings();
 	    ShowTargeMapForUser.getSettings().setJavaScriptEnabled(true); // 開啟JAVASCRIPT功能
 	    ShowTargeMapForUser.loadUrl(MAP_URL);
+	    
+	    
+	    
 	  }  
 	}
 	

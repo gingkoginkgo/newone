@@ -26,8 +26,8 @@ public class posChecker extends Service{
 		    _lon = location.getLongitude();
 		    POIService _ps = new POIService();
 		    ArrayList<POI> _result = _ps.getNearByPOIs(_lat, _lon, "food");
-		
-		    
+		    if(_result.size() == 0)
+		    	return;
 		}
 
 		@Override

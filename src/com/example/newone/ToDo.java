@@ -22,19 +22,19 @@ public class ToDo {
 	
 	public String getActionType(){
 		return ActionType;
-		}
+	}
 	public String getStartTime(){
 		return StartTime;
-		}
+	}
 	public String getDeadlineTime(){
 		return DeadlineTime;
-		}
+	}
 	public String getDescription(){
 		return Description;
-		}
+	}
 	public String getTarget_Place(){
 		return Target_Place;
-		}
+	}
 	
 	
 	

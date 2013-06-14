@@ -23,11 +23,6 @@ public class MainActivity extends Activity{
 	private ListView list;
 	private ToDo recordTodo;
 	
-	
-	
-	
-	
-	
 	//����UAddNe���îɡA���hNewAddToDo
 	private OnClickListener ListenerForAddNew = new OnClickListener() {
 		@Override

@@ -17,7 +17,7 @@ public class httpService {
 		String _ret = new String();
 		_ret = "test";
 		return _ret;
-		
+		// I'm bit cat , I add somthing here
 		/*
 		HttpClient client = new DefaultHttpClient();
 		HttpGet get = new HttpGet(url+"?"+value);

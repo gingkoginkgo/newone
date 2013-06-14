@@ -24,22 +24,23 @@ public class posChecker extends Service{
 		public void onLocationChanged(Location location) {
 		    _lat = location.getLatitude();
 		    _lon = location.getLongitude();
-		    POIService _ps = new POIService();
+		    
+		    //maybe can change to run function is better
+		    POIService _ps = POIService.getInstance();
 		    ArrayList<ToDo> _todoList = ToDoManager.getInstance().getUserToDo();
 		    ArrayList<POI> _result = new ArrayList<POI>();
-		   // for(ToDo t : _todoList){
-		    	ArrayList<POI> _resulttmp = _ps.getNearByPOIs(_lat, _lon, "food");
+		    for(ToDo t : _todoList){
+		    	ArrayList<POI> _resulttmp = _ps.getNearByPOIs(_lat, _lon, t.getTarget_Place());
 		    	_result.addAll(_resulttmp);
-		   // }
-		    if(_result.size() == 0)
+		    }
+		    if(_result.size() == 0)				//check array size
 		    	return;
-		    //switch to reminder, 
-		    //set location to reminder
-		    _result.get(0).getLat();
-		    _result.get(0).getLng();
+		    POIService.getInstance().setResultPOI(_result.get(0));
 		    Intent dialogIntent = new Intent(getBaseContext(), Reminder.class);
 		    dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		    getApplication().startActivity(dialogIntent);
+		    //////////////////////////////////////////////
+		    
 		}
 
 		@Override
@@ -97,8 +98,9 @@ public class posChecker extends Service{
     private Runnable showTime = new Runnable() {
        public void run() {
     	   //check distance
-           Log.i("Distance:", ""+checkDis(30.0, -121.0, _lat, _lon)); 
+           //Log.i("Distance:", ""+checkDis(30.0, -121.0, _lat, _lon)); 
            handler.postDelayed(this, 1000);
         }
     };
+    
 }

@@ -1,6 +1,9 @@
 package com.example.newone;
 
 import java.util.ArrayList;
+import org.json.*;
+
+import android.util.Log;
 
 public class POIService {
 	
@@ -19,8 +22,24 @@ public class POIService {
 				         +"radius=500"+"&types="+target+"&sensor=false"+"&key="+_apikey;
 		 String _result = _hs.httpServiceGet(_url, _vaule);
 		
+		try{
+			JSONObject j = new JSONObject(_result);
+			
+			for(int i = 0;;i++){
+				Object POIt =  j.getJSONArray("results").get(i);
+				if(POIt == null)
+					break;
+				
+				String _name = j.getJSONArray("results").getJSONObject(i).getJSONObject("name").toString();
+				int g = 0;
+			}
+			
+		}
+		catch(Exception e){
+			e.getStackTrace();
+		}
 		
-		
+	
 		return _ret;
 	}
 

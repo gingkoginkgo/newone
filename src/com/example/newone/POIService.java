@@ -6,12 +6,21 @@ import org.json.*;
 import android.util.Log;
 
 public class POIService {
-	
+	private static POIService _instance = null; 	
 	private String _apikey;
+	private POI _resultPOI;
 	
-	public POIService(){
+	
+	private POIService(){
 		_apikey = "AIzaSyDsVduKQ1Yv8f8Zmfe7Dw7e_cTsUYYO6EU";
 	}
+	
+    public static POIService getInstance() { 
+        if (_instance == null) {
+            _instance = new POIService(); 
+        }
+        return _instance;
+    }
 	public ArrayList<POI> getNearByPOIs(double lat, double lan, String target){
 		ArrayList<POI> _ret = new ArrayList<POI>();
 		//search poi by location. Use Httpservices & google Place API.
@@ -42,6 +51,12 @@ public class POIService {
 			e.getStackTrace();
 		}
 		return _ret;
+	}
+	public void setResultPOI(POI p){
+		_resultPOI = p;
+	}
+	public POI getResultPOI(){
+		return _resultPOI;
 	}
 
 }

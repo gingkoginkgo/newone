@@ -11,7 +11,7 @@ import android.webkit.WebViewClient;
 public class Reminder extends Activity {
 
 	private WebView ShowTargeMapForUser;
-	public Reminder(){}
+	private String MAP_URL="http://www.google.com";
 		
 	@Override
 		protected void onCreate(Bundle savedInstanceState) {
@@ -19,18 +19,9 @@ public class Reminder extends Activity {
 	    setContentView(R.layout.showtargetmap);
 	    ShowTargeMapForUser = (WebView)findViewById(R.id.webview);
 	    WebSettings webSettings = ShowTargeMapForUser.getSettings();
-	    webSettings.setJavaScriptEnabled(true);
-		}
-	
-	  @Override
-	  public void onStart()
-	  {
-	    super.onStart();
-	    String ShowResUrl = "http://ascii.net/ok.jsp";
-	    ShowTargeMapForUser.loadUrl(ShowResUrl);
-	    ShowTargeMapForUser.setWebViewClient(new WebViewClientImpl());
-	  }
-		
+	    ShowTargeMapForUser.getSettings().setJavaScriptEnabled(true); // 開啟JAVASCRIPT功能
+	    ShowTargeMapForUser.loadUrl(MAP_URL);
+	  }  
 	}
 	
 

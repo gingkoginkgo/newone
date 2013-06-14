@@ -51,6 +51,10 @@ public class MainActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+		
+	     Intent intent = new Intent(MainActivity.this, posChecker.class);
+	     startService(intent);
+	      
 		_AddNew = (Button) findViewById(R.id.AddNewbutton);
 		_Delete = (Button) findViewById(R.id.Deletebutton);
 		

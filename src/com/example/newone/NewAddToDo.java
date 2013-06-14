@@ -25,7 +25,7 @@ public class NewAddToDo extends Activity {
 	private EditText _Deadline;
 	private EditText _Description;
 
-	//·í«ö¤UDone«ö¯Ã®É¡A¸õ¦^MainActivity
+	//ï¿½ï¿½ï¿½ï¿½UDoneï¿½ï¿½ï¿½Ã®É¡Aï¿½ï¿½ï¿½^MainActivity
 	private OnClickListener ListenerForDone = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
@@ -39,17 +39,17 @@ public class NewAddToDo extends Activity {
 			final String _tmpDescription = _Description.getText().toString();
 		////////////////////////////////	
 			final httpService _hs = new httpService();
-			final String _url = null;
-			final String _value = null;
+			final String _url = "http://140.115.53.110:8080/helloJSP/index.html";
+			final String _value = "";
 			
 			
 			// Handler for httpservice thread
 			final Handler mHandler = new Handler() { 
 			     public void handleMessage(Message msg) { 
 			 		String _targetPlace=  msg.getData().get("1").toString();
-			 		//·s¼W¤@­ÓToDo¡AµM«á§âUser¿é¤Jªº°Ñ¼Æ¦s¤JToDo tmp
+			 		//ï¿½sï¿½Wï¿½@ï¿½ï¿½ToDoï¿½Aï¿½Mï¿½ï¿½ï¿½Userï¿½ï¿½Jï¿½ï¿½ï¿½Ñ¼Æ¦sï¿½JToDo tmp
 					ToDo tmp = new ToDo(_tmpActionType, _tmpStartTime, _tmpDeadline, _tmpDescription, _targetPlace);
-					//§âtmp¥áµ¹ToDoManager¡AÅý¥L§âtmp¥[¤J"ArrayList<ToDo> AllToDoListSavedInHere"
+					//ï¿½ï¿½tmpï¿½áµ¹ToDoManagerï¿½Aï¿½ï¿½Lï¿½ï¿½tmpï¿½[ï¿½J"ArrayList<ToDo> AllToDoListSavedInHere"
 					ToDoManager.getInstance().addUserToDo(tmp);
 			     } 
 			 };
@@ -85,7 +85,7 @@ public class NewAddToDo extends Activity {
 		 _Description = (EditText) findViewById(R.id.DescriptionEditText);
 		 _ActionType = (RadioGroup) findViewById(R.id.radioGroup1);
 		 _Done = (Button) findViewById(R.id.Donebutton);
-		 //µù¥U
+		 //ï¿½ï¿½U
 		_Done.setOnClickListener(ListenerForDone);
 
 		

@@ -1,5 +1,7 @@
 package com.example.newone;
 
+import java.util.ArrayList;
+
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -17,10 +19,15 @@ public class posChecker extends Service{
 	private double _lat;
 	private final double EARTH_RADIUS = 6378137.0;
 	
+	
 	private final LocationListener locationListener = new LocationListener() {
 		public void onLocationChanged(Location location) {
 		    _lat = location.getLatitude();
 		    _lon = location.getLongitude();
+		    POIService _ps = new POIService();
+		    ArrayList<POI> _result = _ps.getNearByPOIs(_lat, _lon, "food");
+		
+		    
 		}
 
 		@Override

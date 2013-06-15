@@ -90,7 +90,6 @@ public class posChecker extends Service{
  
     @Override
     public void onDestroy() {
-        handler.removeCallbacks(showTime);
         super.onDestroy();
     }
     

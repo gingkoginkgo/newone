@@ -43,7 +43,7 @@ public class posChecker extends Service{
 		    POIService.getInstance().setResultPOI(_result.get(0));
 		    /////////////////////////////////////////////
 
-
+		    //Notification
 		    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             Notification notification = new Notification(R.drawable.ic_launcher, _result.get(0).getName(), System.currentTimeMillis());
             Intent intent = new Intent(Intent.ACTION_MAIN);

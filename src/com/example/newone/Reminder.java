@@ -7,6 +7,7 @@ import android.webkit.WebView;
 import android.webkit.WebSettings;
 import android.webkit.WebViewClient;
 
+//先去買便當，要改成Notification
 //如果確定提醒，交給他處理
 
 public class Reminder extends Activity {

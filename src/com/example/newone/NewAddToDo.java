@@ -25,7 +25,7 @@ public class NewAddToDo extends Activity {
 	private EditText _Deadline;
 	private EditText _Description;
 
-	//����UDone���îɡA���^MainActivity
+
 	private OnClickListener ListenerForDone = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
@@ -46,10 +46,9 @@ public class NewAddToDo extends Activity {
 			// Handler for httpservice thread
 			final Handler mHandler = new Handler() { 
 			     public void handleMessage(Message msg) { 
+			 
 			 		String _targetPlace=  msg.getData().get("1").toString();
-			 		//�s�W�@��ToDo�A�M���User��J���ѼƦs�JToDo tmp
 					ToDo tmp = new ToDo(_tmpActionType, _tmpStartTime, _tmpDeadline, _tmpDescription, _targetPlace);
-					//��tmp�ᵹToDoManager�A��L��tmp�[�J"ArrayList<ToDo> AllToDoListSavedInHere"
 					ToDoManager.getInstance().addUserToDo(tmp);
 					Intent intent = new Intent(); 
 					intent.setClass(NewAddToDo.this,MainActivity.class); 
@@ -85,7 +84,7 @@ public class NewAddToDo extends Activity {
 		 _Description = (EditText) findViewById(R.id.DescriptionEditText);
 		 _ActionType = (RadioGroup) findViewById(R.id.radioGroup1);
 		 _Done = (Button) findViewById(R.id.Donebutton);
-		 //��U
+		
 		_Done.setOnClickListener(ListenerForDone);
 
 		

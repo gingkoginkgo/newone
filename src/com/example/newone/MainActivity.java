@@ -23,7 +23,7 @@ public class MainActivity extends Activity{
 	private ListView list;
 	private ToDo recordTodo;
 	
-	//����UAddNe���îɡA���hNewAddToDo
+
 	private OnClickListener ListenerForAddNew = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
@@ -35,7 +35,7 @@ public class MainActivity extends Activity{
 		}
 	}; 
 		
-	//����UDelete���î�:1.Delete��쪺ToDo 2.��sToDoList
+
 	private OnClickListener ListenerForDelete = new OnClickListener(){
 		
 		@Override
@@ -67,11 +67,11 @@ public class MainActivity extends Activity{
 		list = (ListView) findViewById(R.id.ToDolistView);
 	}
 	
-	//���ToDoList
+
 	public void ShowToDoList(){
 
 		ArrayList<ToDo> showToDos = ToDoManager.getInstance().getUserToDo();	
-		//�ŧi�@�Ӹ�String������ArrayList
+
 		ArrayList<String> _todoString = new ArrayList<String>();    
 		
 		for(ToDo t:showToDos){   /////////////////////
@@ -80,7 +80,7 @@ public class MainActivity extends Activity{
 		
 		 list = (ListView) findViewById(R.id.ToDolistView);
 		 
-		 //listview����ϥ�setAdapter��k�]���ListActivity�O��setListAdapter�^
+
 		 list.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, _todoString));
 		 
 		 list.setOnItemSelectedListener(new OnItemSelectedListener(){
@@ -105,7 +105,7 @@ public class MainActivity extends Activity{
 					arg1.setSelected(true);
 				}});
 		 
-		 //�ҥΫ���L�o�\��]������listview����A���ݭngetListView��k�^
+
 		 list.setTextFilterEnabled(true);
 	}
 }

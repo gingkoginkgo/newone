@@ -51,6 +51,10 @@ public class NewAddToDo extends Activity {
 					ToDo tmp = new ToDo(_tmpActionType, _tmpStartTime, _tmpDeadline, _tmpDescription, _targetPlace);
 					//��tmp�ᵹToDoManager�A��L��tmp�[�J"ArrayList<ToDo> AllToDoListSavedInHere"
 					ToDoManager.getInstance().addUserToDo(tmp);
+					Intent intent = new Intent(); 
+					intent.setClass(NewAddToDo.this,MainActivity.class); 
+					startActivity(intent); 
+					NewAddToDo.this.finish(); 
 			     } 
 			 };
 			 
@@ -68,10 +72,6 @@ public class NewAddToDo extends Activity {
 	
 	////////////////////////		
 			
-			Intent intent = new Intent(); 
-			intent.setClass(NewAddToDo.this,MainActivity.class); 
-			startActivity(intent); 
-			NewAddToDo.this.finish(); 
 		}
 	}; 
 

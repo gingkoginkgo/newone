@@ -13,6 +13,7 @@ public class POIService {
 	
 	private POIService(){
 		_apikey = "AIzaSyDsVduKQ1Yv8f8Zmfe7Dw7e_cTsUYYO6EU";
+		_resultPOI = null;
 	}
 	
     public static POIService getInstance() { 

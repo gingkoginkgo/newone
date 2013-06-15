@@ -2,6 +2,9 @@ package com.example.newone;
 
 import java.util.ArrayList;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -25,6 +28,8 @@ public class posChecker extends Service{
 		    _lat = location.getLatitude();
 		    _lon = location.getLongitude();
 		    
+		    
+		    
 		    //maybe can change to run function is better
 		    POIService _ps = POIService.getInstance();
 		    ArrayList<ToDo> _todoList = ToDoManager.getInstance().getUserToDo();
@@ -36,10 +41,17 @@ public class posChecker extends Service{
 		    if(_result.size() == 0)				//check array size
 		    	return;
 		    POIService.getInstance().setResultPOI(_result.get(0));
-		    Intent dialogIntent = new Intent(getBaseContext(), Reminder.class);
-		    dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		    getApplication().startActivity(dialogIntent);
-		    //////////////////////////////////////////////
+		    /////////////////////////////////////////////
+
+
+		    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            Notification notification = new Notification(R.drawable.ic_launcher, _result.get(0).getName(), System.currentTimeMillis());
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.setClass(getApplicationContext(), Reminder.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
+            notification.setLatestEventInfo(getApplicationContext(), "附近有", _result.get(0).getName(), contentIntent);
+            notificationManager.notify(R.drawable.ic_launcher, notification);
 		    
 		}
 

@@ -23,6 +23,7 @@ public class Reminder extends Activity {
 		super.onCreate(savedInstanceState);
 	    setContentView(R.layout.showtargetmap);
 	    POI r = POIService.getInstance().getResultPOI();
+	    POIService.getInstance().setResultPOI(null);
 	    recive_resultLat = ""+r.getLat();
 	    recive_resultLng = ""+r.getLng();
 	    ShowTargeMapForUser = (WebView)findViewById(R.id.webview);

@@ -6,11 +6,11 @@ public class ToDo {
 	
 	private String ActionType;
 	private String StartTime;
-	private String DeadlineTime;
+	private long DeadlineTime;
 	private String Description;
 	private String Target_Place;
 	
-	public ToDo(String _ActionType , String _StartTime , String _DeadlineTime , String _Description, String _Target_Place)
+	public ToDo(String _ActionType , String _StartTime , long _DeadlineTime , String _Description, String _Target_Place)
 	{
 		ActionType = _ActionType;
 		StartTime = _StartTime;
@@ -26,7 +26,7 @@ public class ToDo {
 	public String getStartTime(){
 		return StartTime;
 	}
-	public String getDeadlineTime(){
+	public long getDeadlineTime(){
 		return DeadlineTime;
 	}
 	public String getDescription(){

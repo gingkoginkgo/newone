@@ -2,7 +2,9 @@
 
 package com.example.newone;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -23,7 +25,7 @@ public class posChecker extends Service{
 	private double _lon;
 	private double _lat;
 	private final double EARTH_RADIUS = 6378137.0;
-	
+	ArrayList<ToDo> _todoList = ToDoManager.getInstance().getUserToDo();
 	
 	private final LocationListener locationListener = new LocationListener() {
 		public void onLocationChanged(Location location) {
@@ -33,17 +35,35 @@ public class posChecker extends Service{
 		    
 		    //compare CurrentTime and Deadline.
 		    //if Deadline is closed enough(maybe 30 mins) ,also jump Notification	    
+		   
 		    //get CurrentTime
-		    long currentTime = System.currentTimeMillis();
+		    Calendar _calendar=Calendar.getInstance();
+            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy/MM/dd HH:mm");
+            
+            //because in Java , month start from 0 , so +1
+            int CurrentTime = _calendar.get(Calendar.YEAR)
+            		        + (_calendar.get(Calendar.MONTH)+1)
+            				+ _calendar.get(Calendar.DAY_OF_MONTH)
+            				+ _calendar.get(Calendar.HOUR_OF_DAY)
+            				+ _calendar.get(Calendar.MINUTE);
+            
 		    
 		    //get All Deadline of ToDoList
+		    ArrayList<String> deadLines = new ArrayList<String>();
+            for(int i =0; i<_todoList.size();i++)
+		    {
+		    //	deadLines.add(_todoList.get(i).getDeadlineTime());
+		    }           
+            
+            //if (Deadline - CurrentTime) <30 mins , jump CurrentTime
 		    
-		    
-		    
+            
+            
+            
 		    
 		    //maybe can change to run function is better
 		    POIService _ps = POIService.getInstance();
-		    ArrayList<ToDo> _todoList = ToDoManager.getInstance().getUserToDo();
+	//	    ArrayList<ToDo> _todoList = ToDoManager.getInstance().getUserToDo();
 		    ArrayList<POI> _result = new ArrayList<POI>();
 		    for(ToDo t : _todoList){
 		    	ArrayList<POI> _resulttmp = _ps.getNearByPOIs(_lat, _lon, t.getTarget_Place());

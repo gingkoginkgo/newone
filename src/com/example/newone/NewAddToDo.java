@@ -2,7 +2,10 @@ package com.example.newone;
 
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -35,7 +38,18 @@ public class NewAddToDo extends Activity {
 
 			final String _tmpActionType =  _choice.getText().toString();			
 			final String _tmpStartTime = _StartTime.getText().toString();
-			final String _tmpDeadline = _Deadline.getText().toString();
+			final String _tmpDeadlineStr = _Deadline.getText().toString();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+			Date date = new Date(System.currentTimeMillis());
+			try {
+				date = sdf.parse(_tmpDeadlineStr);
+
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			final long _tmpDeadline = date.getTime();
+			
 			final String _tmpDescription = _Description.getText().toString();
 		////////////////////////////////	
 			final httpService _hs = new httpService();

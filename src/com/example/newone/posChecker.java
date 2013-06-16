@@ -24,6 +24,7 @@ public class posChecker extends Service{
 	private Handler handler = new Handler();
 	private double _lon;
 	private double _lat;
+	private final int delaySec = 60;
 	private final double EARTH_RADIUS = 6378137.0;
 	ArrayList<ToDo> _todoList = ToDoManager.getInstance().getUserToDo();
 	
@@ -56,33 +57,7 @@ public class posChecker extends Service{
 		    }           
             
             //if (Deadline - CurrentTime) <30 mins , jump CurrentTime
-		    
-            
-            
-            
-		    
-		    //maybe can change to run function is better
-		    POIService _ps = POIService.getInstance();
-	//	    ArrayList<ToDo> _todoList = ToDoManager.getInstance().getUserToDo();
-		    ArrayList<POI> _result = new ArrayList<POI>();
-		    for(ToDo t : _todoList){
-		    	ArrayList<POI> _resulttmp = _ps.getNearByPOIs(_lat, _lon, t.getTarget_Place());
-		    	_result.addAll(_resulttmp);
-		    }
-		    if(_result.size() == 0)				//check array size
-		    	return;
-		    POIService.getInstance().setResultPOI(_result.get(0));
-		    /////////////////////////////////////////////
 
-		    //Notification
-		    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            Notification notification = new Notification(R.drawable.ic_launcher, _result.get(0).getName(), System.currentTimeMillis());
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.setClass(getApplicationContext(), Reminder.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
-            notification.setLatestEventInfo(getApplicationContext(), "附近有", _result.get(0).getName(), contentIntent);
-            notificationManager.notify(R.drawable.ic_launcher, notification);
 		    
 		}
 
@@ -110,7 +85,7 @@ public class posChecker extends Service{
 	}
     @Override
     public void onStart(Intent intent, int startId) {
-    	handler.postDelayed(showTime, 1000);
+    	handler.postDelayed(checker, 1000);
     	
     	//Get LocationManager
     	LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
@@ -121,27 +96,35 @@ public class posChecker extends Service{
  
     @Override
     public void onDestroy() {
-        super.onDestroy();
+    	handler.removeCallbacks(checker);
+    	super.onDestroy();
     }
     
-    public double checkDis(double lat_a, double lng_a, double lat_b, double lng_b){
-    	double radLat1 = (lat_a * Math.PI / 180.0);
-    	double radLat2 = (lat_b * Math.PI / 180.0);
-    	double a = radLat1 - radLat2;
-    	double b = (lng_a - lng_b) * Math.PI / 180.0;
-    	double s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2)
-    	+ Math.cos(radLat1) * Math.cos(radLat2)
-    	* Math.pow(Math.sin(b / 2), 2)));
-    	s = s * EARTH_RADIUS;
-    	s = Math.round(s * 10000) / 10000;
-    	return s;
+    public void notificationByPOI(){
+	    POIService _ps = POIService.getInstance();
+	    ArrayList<POI> _result = new ArrayList<POI>();
+	    for(ToDo t : _todoList){
+	    	ArrayList<POI> _resulttmp = _ps.getNearByPOIs(_lat, _lon, t.getTarget_Place());
+	    	_result.addAll(_resulttmp);
+	    }
+	    if(_result.size() == 0)				//check array size
+	    	return;
+	    POIService.getInstance().setResultPOI(_result.get(0));
+	    //Notification
+	    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        Notification notification = new Notification(R.drawable.ic_launcher, _result.get(0).getName(), System.currentTimeMillis());
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.setClass(getApplicationContext(), Reminder.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
+        notification.setLatestEventInfo(getApplicationContext(), "附近有", _result.get(0).getName(), contentIntent);
+        notificationManager.notify(R.drawable.ic_launcher, notification);
     }
-     
-    private Runnable showTime = new Runnable() {
+    private Runnable checker = new Runnable() {
        public void run() {
-    	   //check distance
-           //Log.i("Distance:", ""+checkDis(30.0, -121.0, _lat, _lon)); 
-           handler.postDelayed(this, 1000);
+           Log.i("checkPOI:", ""); 
+           notificationByPOI();
+           handler.postDelayed(checker, delaySec*1000);
         }
     };
         

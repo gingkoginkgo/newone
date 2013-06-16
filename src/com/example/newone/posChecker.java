@@ -42,22 +42,29 @@ public class posChecker extends Service{
             SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy/MM/dd HH:mm");
             
             //because in Java , month start from 0 , so +1
-            int CurrentTime = _calendar.get(Calendar.YEAR)
-            		        + (_calendar.get(Calendar.MONTH)+1)
-            				+ _calendar.get(Calendar.DAY_OF_MONTH)
-            				+ _calendar.get(Calendar.HOUR_OF_DAY)
-            				+ _calendar.get(Calendar.MINUTE);
+            long CurrentTime = System.currentTimeMillis();
             
 		    
 		    //get All Deadline of ToDoList
-		    ArrayList<String> deadLines = new ArrayList<String>();
-            for(int i =0; i<_todoList.size();i++)
-		    {
-		    //	deadLines.add(_todoList.get(i).getDeadlineTime());
+
+            for(int i =0; i<_todoList.size();i++)		    {
+		    	if(_todoList.get(i).getDeadlineTime()-CurrentTime<1800000){
+		    		 // notify!!
+		    		//Notification
+				    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		            Notification notification = new Notification(R.drawable.ic_launcher, _todoList.get(i).getDescription(), System.currentTimeMillis());
+		            Intent intent = new Intent(Intent.ACTION_MAIN);
+		            intent.setClass(getApplicationContext(), Reminder.class);
+		            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		            PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
+		            notification.setLatestEventInfo(getApplicationContext(), "快到deadline了!", _todoList.get(i).getDescription(), contentIntent);
+		            notificationManager.notify(R.drawable.ic_launcher, notification);
+		    	}
+		    	
+		    	
 		    }           
             
-            //if (Deadline - CurrentTime) <30 mins , jump CurrentTime
-
+        
 		    
 		}
 

@@ -31,6 +31,15 @@ public class posChecker extends Service{
 		    _lon = location.getLongitude();
 		    
 		    
+		    //compare CurrentTime and Deadline.
+		    //if Deadline is closed enough(maybe 30 mins) ,also jump Notification	    
+		    //get CurrentTime
+		    long currentTime = System.currentTimeMillis();
+		    
+		    //get All Deadline of ToDoList
+		    
+		    
+		    
 		    
 		    //maybe can change to run function is better
 		    POIService _ps = POIService.getInstance();
@@ -115,5 +124,5 @@ public class posChecker extends Service{
            handler.postDelayed(this, 1000);
         }
     };
-    
+        
 }

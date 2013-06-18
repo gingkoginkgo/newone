@@ -96,6 +96,18 @@
                 android:inputType="textMultiLine" />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Priority"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <RatingBar
+            android:id="@+id/PriorityRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp" />
     </LinearLayout>
 
     <Button
@@ -107,22 +119,5 @@
         android:layout_marginBottom="54dp"
         android:layout_marginRight="49dp"
         android:text="Done" />
-
-    <RatingBar
-        android:id="@+id/PriorityRatingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/Donebutton"
-        android:layout_alignLeft="@+id/linearLayout1"
-        android:layout_marginBottom="30dp" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/PriorityRatingBar"
-        android:layout_alignLeft="@+id/PriorityRatingBar"
-        android:text="Priority"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

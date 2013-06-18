@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RatingBar;
+import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 
 public class NewAddToDo extends Activity {
@@ -27,8 +29,9 @@ public class NewAddToDo extends Activity {
 	private EditText _StartTime;
 	private EditText _Deadline;
 	private EditText _Description;
-
-
+	private RatingBar _ratingbar;
+	private float _rate;
+	
 	private OnClickListener ListenerForDone = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
@@ -39,6 +42,10 @@ public class NewAddToDo extends Activity {
 			final String _tmpActionType =  _choice.getText().toString();			
 			final String _tmpStartTime = _StartTime.getText().toString();
 			final String _tmpDeadlineStr = _Deadline.getText().toString();
+			
+			
+			
+			
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 			Date date = new Date(System.currentTimeMillis());
 			try {
@@ -99,6 +106,16 @@ public class NewAddToDo extends Activity {
 		 _ActionType = (RadioGroup) findViewById(R.id.radioGroup1);
 		 _Done = (Button) findViewById(R.id.Donebutton);
 		
+		 _ratingbar = (RatingBar)findViewById(R.id.PriorityRatingBar);
+		 _ratingbar.setOnRatingBarChangeListener(new OnRatingBarChangeListener(){
+			@Override
+			public void onRatingChanged(RatingBar ratingbar, float rating, boolean formUser) {
+				// TODO Auto-generated method stub
+				_ratingbar = (RatingBar)findViewById(R.id.PriorityRatingBar);
+				 _rate = _ratingbar.getRating();
+			}
+		 });
+		 
 		_Done.setOnClickListener(ListenerForDone);
 
 		

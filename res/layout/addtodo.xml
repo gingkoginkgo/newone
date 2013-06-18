@@ -111,8 +111,9 @@
         android:id="@+id/PriorityRatingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/Donebutton"
-        android:layout_alignLeft="@+id/linearLayout1" />
+        android:layout_alignBottom="@+id/Donebutton"
+        android:layout_alignLeft="@+id/linearLayout1"
+        android:layout_marginBottom="30dp" />
 
     <TextView
         android:id="@+id/textView1"
@@ -120,6 +121,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/PriorityRatingBar"
         android:layout_alignLeft="@+id/PriorityRatingBar"
+        android:layout_marginBottom="14dp"
         android:text="Priority"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 

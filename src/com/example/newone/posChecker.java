@@ -33,19 +33,14 @@ public class posChecker extends Service{
 		    _lat = location.getLatitude();
 		    _lon = location.getLongitude();
 		    
-		    
-		    //compare CurrentTime and Deadline.
-		    //if Deadline is closed enough(maybe 30 mins) ,also jump Notification	    
-		   
+
 		    //get CurrentTime
 		    Calendar _calendar=Calendar.getInstance();
             SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy/MM/dd HH:mm");
-            
-            //because in Java , month start from 0 , so +1
             long CurrentTime = System.currentTimeMillis();
             
 		    
-		    //get All Deadline of ToDoList
+		    //get All Deadline of ToDoList and compare CurrentTime and Deadline, pop Notification if Deadline<30 mins
 
             for(int i =0; i<_todoList.size();i++)		    {
 		    	if(_todoList.get(i).getDeadlineTime()-CurrentTime<1800000){
@@ -61,11 +56,9 @@ public class posChecker extends Service{
 		            notificationManager.notify(R.drawable.ic_launcher, notification);
 		    	}
 		    	
-		    	
 		    }           
             
-        
-		    
+   	    
 		}
 
 		@Override

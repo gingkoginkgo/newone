@@ -9,15 +9,16 @@ public class ToDo {
 	private long DeadlineTime;
 	private String Description;
 	private String Target_Place;
+	private float Priority_Rate;
 	
-	public ToDo(String _ActionType , String _StartTime , long _DeadlineTime , String _Description, String _Target_Place)
+	public ToDo(String _ActionType , String _StartTime , long _DeadlineTime , String _Description, String _Target_Place,Float _rate)
 	{
 		ActionType = _ActionType;
 		StartTime = _StartTime;
 		DeadlineTime = _DeadlineTime;
 		Description = _Description;
 		Target_Place = _Target_Place;
-		
+		Priority_Rate = _rate;
 	}
 	
 	public String getActionType(){
@@ -35,7 +36,9 @@ public class ToDo {
 	public String getTarget_Place(){
 		return Target_Place;
 	}
-	
+	public float getPriority_Rate(){
+		return Priority_Rate;
+	}
 	
 	
 }

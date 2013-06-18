@@ -69,7 +69,7 @@ public class NewAddToDo extends Activity {
 			     public void handleMessage(Message msg) { 
 			 
 			 		String _targetPlace=  msg.getData().get("1").toString();
-					ToDo tmp = new ToDo(_tmpActionType, _tmpStartTime, _tmpDeadline, _tmpDescription, _targetPlace);
+					ToDo tmp = new ToDo(_tmpActionType, _tmpStartTime, _tmpDeadline, _tmpDescription, _targetPlace, _rate);
 					ToDoManager.getInstance().addUserToDo(tmp);
 					Intent intent = new Intent(); 
 					intent.setClass(NewAddToDo.this,MainActivity.class); 
@@ -112,7 +112,7 @@ public class NewAddToDo extends Activity {
 			public void onRatingChanged(RatingBar ratingbar, float rating, boolean formUser) {
 				// TODO Auto-generated method stub
 				_ratingbar = (RatingBar)findViewById(R.id.PriorityRatingBar);
-				 _rate = _ratingbar.getRating();
+				_rate = _ratingbar.getRating();
 			}
 		 });
 		 

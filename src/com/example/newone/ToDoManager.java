@@ -31,10 +31,8 @@ public class ToDoManager {
     	AllToDoListSavedInHere.remove(_todo);
     }
     
-
     public ArrayList<ToDo> getUserToDo(){
     	Collections.sort(AllToDoListSavedInHere);
     	return AllToDoListSavedInHere;
     }
-    
 }

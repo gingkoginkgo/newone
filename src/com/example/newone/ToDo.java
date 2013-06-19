@@ -39,6 +39,4 @@ public class ToDo {
 	public float getPriority_Rate(){
 		return Priority_Rate;
 	}
-	
-	
 }

@@ -35,4 +35,10 @@ public class ToDoManager {
     	Collections.sort(AllToDoListSavedInHere);
     	return AllToDoListSavedInHere;
     }
+    
+    public void resetAllScore(){
+    	for(ToDo t : AllToDoListSavedInHere){
+    		t.resetScore();
+    	}
+    }
 }

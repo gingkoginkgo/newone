@@ -3,6 +3,7 @@
 package com.example.newone;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ToDoManager {
     private static ToDoManager _instance = null; 
@@ -32,6 +33,7 @@ public class ToDoManager {
     
 
     public ArrayList<ToDo> getUserToDo(){
+    	Collections.sort(AllToDoListSavedInHere);
     	return AllToDoListSavedInHere;
     }
     

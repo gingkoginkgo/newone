@@ -72,7 +72,8 @@ public class MainActivity extends Activity{
 
 		ArrayList<String> _todoString = new ArrayList<String>();    
 		
-		for(ToDo t:showToDos){   /////////////////////
+		//由分數大到小
+		for(ToDo t:showToDos){  
 			_todoString.add(t.getDescription());
 		}
 		

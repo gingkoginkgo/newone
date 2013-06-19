@@ -92,26 +92,13 @@ public class NewAddToDo extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addtodo);
-
-		 _StartTime = (EditText) findViewById(R.id.StartTimeEditText);
-		 _Deadline = (EditText) findViewById(R.id.DeadlineEditText);
-		 _Description = (EditText) findViewById(R.id.DescriptionEditText);
-		 _ActionType = (RadioGroup) findViewById(R.id.radioGroup1);
-		 _Done = (Button) findViewById(R.id.Donebutton);
-		
-		 _ratingbar = (RatingBar)findViewById(R.id.PriorityRatingBar);
-		 //deadcode?
-		 /*
-		 _ratingbar.setOnRatingBarChangeListener(new OnRatingBarChangeListener(){
-			@Override
-			public void onRatingChanged(RatingBar ratingbar, float rating, boolean formUser) {
-				// TODO Auto-generated method stub
-				_ratingbar = (RatingBar)findViewById(R.id.PriorityRatingBar);
-				_rate = _ratingbar.getRating();
-			}
-		 });
-		 */
-		 
+		//setup ui
+		_StartTime = (EditText) findViewById(R.id.StartTimeEditText);
+		_Deadline = (EditText) findViewById(R.id.DeadlineEditText);
+		_Description = (EditText) findViewById(R.id.DescriptionEditText);
+		_ActionType = (RadioGroup) findViewById(R.id.radioGroup1);
+		_Done = (Button) findViewById(R.id.Donebutton);
+		_ratingbar = (RatingBar)findViewById(R.id.PriorityRatingBar);
 		_Done.setOnClickListener(ListenerForDone);
 
 		

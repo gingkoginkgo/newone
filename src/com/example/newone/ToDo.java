@@ -8,6 +8,7 @@ public class ToDo implements Comparable{
 	private String Target_Place;
 	private float Priority_Rate;
 	private float _score;
+	private POI _poi;
 	
 	public ToDo(String _ActionType , String _StartTime , long _DeadlineTime , String _Description, String _Target_Place,Float _rate)
 	{
@@ -17,6 +18,7 @@ public class ToDo implements Comparable{
 		Description = _Description;
 		Target_Place = _Target_Place;
 		Priority_Rate = _rate;
+		_poi = null;
 		_score = _rate;
 	}
 	public String getActionType(){
@@ -49,5 +51,16 @@ public class ToDo implements Comparable{
 		ToDo tmp = (ToDo)arg0;
 		float ret = tmp.getScore() -this._score ;
 		return (int)ret;
+	}
+	public void resetScore(){
+		_score = Priority_Rate;
+		_poi = null;
+	}
+	public void setIsByLoc(POI b){
+		_poi = b;
+	}
+	
+	public POI getPOI(){
+		return _poi;
 	}
 }

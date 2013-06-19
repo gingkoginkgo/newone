@@ -41,6 +41,9 @@ public class ToDo implements Comparable{
 	public float getScore(){
 		return _score;
 	}
+	public void setScore(float s){
+		_score = s;
+	}
 
 	@Override
 	public int compareTo(Object arg0) {

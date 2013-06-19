@@ -42,7 +42,7 @@ public class posChecker extends Service{
 		    
 		    //get All Deadline of ToDoList and compare CurrentTime and Deadline, pop Notification if Deadline<30 mins
 
-            for(int i =0; i<_todoList.size();i++)		    {
+            for(int i =0; i<_todoList.size();i++){
 		    	if(_todoList.get(i).getDeadlineTime()-CurrentTime<1800000){
 		    		 // notify!!
 		    		//Notification

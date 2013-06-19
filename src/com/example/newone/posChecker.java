@@ -55,10 +55,7 @@ public class posChecker extends Service{
 		            notification.setLatestEventInfo(getApplicationContext(), "快到deadline了!", _todoList.get(i).getDescription(), contentIntent);
 		            notificationManager.notify(R.drawable.ic_launcher, notification);
 		    	}
-		    	
 		    }           
-            
-   	    
 		}
 
 		@Override

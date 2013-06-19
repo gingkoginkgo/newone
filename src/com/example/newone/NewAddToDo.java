@@ -1,7 +1,5 @@
 package com.example.newone;
 
-
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,21 +28,17 @@ public class NewAddToDo extends Activity {
 	private EditText _Deadline;
 	private EditText _Description;
 	private RatingBar _ratingbar;
-	private float _rate;
 	
 	private OnClickListener ListenerForDone = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-	/******		int i = _ActionType.getCheckedRadioButtonId();******/
 			RadioButton _choice = (RadioButton) findViewById(_ActionType.getCheckedRadioButtonId());
 
 			final String _tmpActionType =  _choice.getText().toString();			
 			final String _tmpStartTime = _StartTime.getText().toString();
 			final String _tmpDeadlineStr = _Deadline.getText().toString();
-			
-			
-			
+			final float _tmpRanting = _ratingbar.getRating();
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 			Date date = new Date(System.currentTimeMillis());
@@ -58,7 +52,6 @@ public class NewAddToDo extends Activity {
 			final long _tmpDeadline = date.getTime();
 			
 			final String _tmpDescription = _Description.getText().toString();
-		////////////////////////////////	
 			final httpService _hs = new httpService();
 			final String _url = "http://140.115.53.110:8080/helloJSP/index.html";
 			final String _value = "";
@@ -69,7 +62,7 @@ public class NewAddToDo extends Activity {
 			     public void handleMessage(Message msg) { 
 			 
 			 		String _targetPlace=  msg.getData().get("1").toString();
-					ToDo tmp = new ToDo(_tmpActionType, _tmpStartTime, _tmpDeadline, _tmpDescription, _targetPlace, _rate);
+					ToDo tmp = new ToDo(_tmpActionType, _tmpStartTime, _tmpDeadline, _tmpDescription, _targetPlace, _tmpRanting);
 					ToDoManager.getInstance().addUserToDo(tmp);
 					Intent intent = new Intent(); 
 					intent.setClass(NewAddToDo.this,MainActivity.class); 
@@ -107,6 +100,8 @@ public class NewAddToDo extends Activity {
 		 _Done = (Button) findViewById(R.id.Donebutton);
 		
 		 _ratingbar = (RatingBar)findViewById(R.id.PriorityRatingBar);
+		 //deadcode?
+		 /*
 		 _ratingbar.setOnRatingBarChangeListener(new OnRatingBarChangeListener(){
 			@Override
 			public void onRatingChanged(RatingBar ratingbar, float rating, boolean formUser) {
@@ -115,6 +110,7 @@ public class NewAddToDo extends Activity {
 				_rate = _ratingbar.getRating();
 			}
 		 });
+		 */
 		 
 		_Done.setOnClickListener(ListenerForDone);
 

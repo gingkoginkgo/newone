@@ -31,31 +31,7 @@ public class posChecker extends Service{
 	private final LocationListener locationListener = new LocationListener() {
 		public void onLocationChanged(Location location) {
 		    _lat = location.getLatitude();
-		    _lon = location.getLongitude();
-		    
-
-		    //get CurrentTime
-		    Calendar _calendar=Calendar.getInstance();
-            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy/MM/dd HH:mm");
-            long CurrentTime = System.currentTimeMillis();
-            
-		    
-		    //get All Deadline of ToDoList and compare CurrentTime and Deadline, pop Notification if Deadline<30 mins
-
-            for(int i =0; i<_todoList.size();i++){
-		    	if(_todoList.get(i).getDeadlineTime()-CurrentTime<1800000){
-		    		 // notify!!
-		    		//Notification
-				    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-		            Notification notification = new Notification(R.drawable.ic_launcher, _todoList.get(i).getDescription(), System.currentTimeMillis());
-		            Intent intent = new Intent(Intent.ACTION_MAIN);
-		            intent.setClass(getApplicationContext(), Reminder.class);
-		            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		            PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
-		            notification.setLatestEventInfo(getApplicationContext(), "快到deadline了!", _todoList.get(i).getDescription(), contentIntent);
-		            notificationManager.notify(R.drawable.ic_launcher, notification);
-		    	}
-		    }           
+		    _lon = location.getLongitude(); 
 		}
 
 		@Override
@@ -97,30 +73,98 @@ public class posChecker extends Service{
     	super.onDestroy();
     }
     
-    public void notificationByPOI(){
+    private void checkByPOI(){
+	    ArrayList<ToDo> tmpl = ToDoManager.getInstance().getUserToDo();
+	    ArrayList<String> targetlist = new ArrayList<String>();
+	    for(ToDo d : tmpl){
+	    	if(targetlist.indexOf(d.getTarget_Place())<0){
+	    		//didnt add before
+	    		targetlist.add(d.getTarget_Place());
+	    	}
+	    }
+	    //get all target
+	    for(String s : targetlist){
+	    	checkPOIbyTarget(s);
+	    }
+    }
+    
+    private int checkPOIbyTarget(String s){
 	    POIService _ps = POIService.getInstance();
 	    ArrayList<POI> _result = new ArrayList<POI>();
-	    for(ToDo t : _todoList){
-	    	ArrayList<POI> _resulttmp = _ps.getNearByPOIs(_lat, _lon, t.getTarget_Place());
-	    	_result.addAll(_resulttmp);
-	    }
-	    if(_result.size() == 0)				//check array size
-	    	return;
-	    POIService.getInstance().setResultPOI(_result.get(0));
-	    //Notification
+	    ArrayList<POI> _resulttmp = _ps.getNearByPOIs(_lat, _lon, s);
+	    _result.addAll(_resulttmp);
+	    if(_result.size() == 0)
+	    	return 0 ;
+	    ArrayList<ToDo> tmpl = ToDoManager.getInstance().getUserToDo();
+		for(ToDo d : tmpl){
+			if(d.getTarget_Place().equals(s)){
+				//add score
+				d.setScore(d.getScore()+10f);
+				d.setIsByLoc(_result.get(0));   //塞入最近的
+			}
+		}
+	    return _result.size();
+    }
+    
+    private void gNotification(String Title,String subTitle,String Scr,int NotiTag){
 	    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        Notification notification = new Notification(R.drawable.ic_launcher, _result.get(0).getName(), System.currentTimeMillis());
+        Notification notification = new Notification(R.drawable.ic_launcher, Title, System.currentTimeMillis());
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.setClass(getApplicationContext(), Reminder.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
-        notification.setLatestEventInfo(getApplicationContext(), "附近有", _result.get(0).getName(), contentIntent);
-        notificationManager.notify(R.drawable.ic_launcher, notification);
+        notification.setLatestEventInfo(getApplicationContext(), subTitle,Scr, contentIntent);
+        notificationManager.notify(NotiTag, notification);
     }
+    
+    private void tNotification(String Title,String subTitle,String Scr,int NotiTag){
+	    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        Notification notification = new Notification(R.drawable.ic_launcher, Title, System.currentTimeMillis());
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.setClass(getApplicationContext(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
+        notification.setLatestEventInfo(getApplicationContext(), subTitle,Scr, contentIntent);
+        notificationManager.notify(NotiTag, notification);
+    }
+    
+    private void checkByTime(){
+    	ArrayList<ToDo> tmpl = ToDoManager.getInstance().getUserToDo();
+    	long CurrentTime = System.currentTimeMillis();
+    	
+    	for(ToDo d : tmpl){
+    		if((d.getDeadlineTime()-CurrentTime)<1800000){
+    			d.setScore(d.getScore()+10.0f);
+    		}
+    		else if((d.getDeadlineTime()-CurrentTime)<3600000){
+    			d.setScore(d.getScore()+5.0f);
+    		}
+    		else{
+    			d.setScore(d.getScore()+1.0f);
+    		}
+    	}
+    }
+    
     private Runnable checker = new Runnable() {
        public void run() {
            Log.i("checkPOI:", ""); 
-           notificationByPOI();
+           ToDoManager.getInstance().resetAllScore();
+           /*Score = priority + deadline(半小時以內10 一小時以內5 一小時以上1)
+        		   +500m裡有地點 10 沒有0*/
+           checkByTime();
+           checkByPOI();
+           ArrayList<ToDo> tmpl = ToDoManager.getInstance().getUserToDo();
+           if(tmpl.size() == 0)
+        	   return;
+           for(int i =0;i<tmpl.size();i++){
+        	   if(tmpl.get(i).getPOI()!=null){
+        		   POIService.getInstance().setResultPOI(tmpl.get(i).getPOI());
+        		   gNotification(tmpl.get(i).getPOI().getName(),"Near :",tmpl.get(i).getPOI().getName(),i);
+        	   }
+        	   else{
+        		   tNotification(tmpl.get(i).getDescription(), "時間要到了", String.valueOf(tmpl.get(i).getDeadlineTime()), i);
+        	   }
+           }
            handler.postDelayed(checker, delaySec*1000);
         }
     };

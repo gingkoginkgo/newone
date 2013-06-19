@@ -19,7 +19,6 @@ public class ToDo implements Comparable{
 		Priority_Rate = _rate;
 		_score = _rate;
 	}
-	
 	public String getActionType(){
 		return ActionType;
 	}
@@ -48,7 +47,7 @@ public class ToDo implements Comparable{
 	@Override
 	public int compareTo(Object arg0) {
 		ToDo tmp = (ToDo)arg0;
-		float ret = this._score - tmp.getScore();
+		float ret = tmp.getScore() -this._score ;
 		return (int)ret;
 	}
 }

@@ -1,9 +1,6 @@
 package com.example.newone;
 
-
-
 public class ToDo {
-	
 	private String ActionType;
 	private String StartTime;
 	private long DeadlineTime;

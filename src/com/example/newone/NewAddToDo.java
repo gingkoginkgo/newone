@@ -53,11 +53,11 @@ public class NewAddToDo extends Activity {
 			
 			final String _tmpDescription = _Description.getText().toString();
 			final httpService _hs = new httpService();
-			final String _url = "http://localhost:8080/ProtegeJSP/GetUserData.jsp";
-			final String _value = "";
+			final String _url = "http://140.115.53.110:8080/ProtegeJSP/GetUserData.jsp";
+			final String _value = _tmpActionType;
 			
 			
-			// Handler for httpservice thread
+			// Handler for httpservice thread_
 			final Handler mHandler = new Handler() { 
 			     public void handleMessage(Message msg) { 
 			 

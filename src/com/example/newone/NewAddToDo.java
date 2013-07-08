@@ -54,7 +54,7 @@ public class NewAddToDo extends Activity {
 			final String _tmpDescription = _Description.getText().toString();
 			final httpService _hs = new httpService();
 			final String _url = "http://140.115.53.110:8080/ProtegeJSP/GetUserData.jsp";
-			final String _value = _tmpActionType;
+			
 			
 			
 			// Handler for httpservice thread_
@@ -75,7 +75,7 @@ public class NewAddToDo extends Activity {
 			Thread thread = new Thread(){
 			public void run(){
 				Bundle bundle = new Bundle();
-				bundle.putString("1", _hs.httpServiceGet(_url, _value));	
+				bundle.putString("1", _hs.httpServiceGet(_url, "action="+_tmpActionType));	
 				Message msg = new Message();
 				msg.setData(bundle);
 				mHandler.sendMessage(msg);

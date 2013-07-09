@@ -53,7 +53,7 @@ public class NewAddToDo extends Activity {
 			
 			final String _tmpDescription = _Description.getText().toString();
 			final httpService _hs = new httpService();
-			final String _url = "http://140.115.53.110:8080/ProtegeJSP/GetUserData.jsp";
+			final String _url = "http://10.105.1.27:8080/ProtegeJSP/GetUserData.jsp";
 			
 			
 			
@@ -62,6 +62,8 @@ public class NewAddToDo extends Activity {
 			     public void handleMessage(Message msg) { 
 			 
 			 		String _targetPlace=  msg.getData().get("1").toString();
+			 		_targetPlace = _targetPlace.replace("\r\n", "");
+			 		_targetPlace = _targetPlace.replace(" ", "");
 					ToDo tmp = new ToDo(_tmpActionType, _tmpStartTime, _tmpDeadline, _tmpDescription, _targetPlace, _tmpRanting);
 					ToDoManager.getInstance().addUserToDo(tmp);
 					Intent intent = new Intent(); 

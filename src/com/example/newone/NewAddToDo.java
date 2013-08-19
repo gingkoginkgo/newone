@@ -53,7 +53,7 @@ public class NewAddToDo extends Activity {
 			
 			final String _tmpDescription = _Description.getText().toString();
 			final httpService _hs = new httpService();
-			final String _url = "http://10.105.1.27:8080/ProtegeJSP/GetUserData.jsp";
+			final String _url = "http://10.105.4.45:8080/ProtegeJSP/TestOWL.jsp";
 			
 			
 			

@@ -63,7 +63,7 @@ public class posChecker extends Service{
     	//Get LocationManager
     	LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
     	Location loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-    	lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 1, locationListener);
+    	lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, locationListener);
         super.onStart(intent, startId);
     }
  

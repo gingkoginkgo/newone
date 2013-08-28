@@ -1,6 +1,9 @@
 package com.example.newone;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -15,6 +18,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.content.Intent;
+import android.database.Cursor;
 
 public class MainActivity extends Activity{
 
@@ -62,7 +66,33 @@ public class MainActivity extends Activity{
 		_AddNew.setOnClickListener(ListenerForAddNew);
 		_Delete.setOnClickListener(ListenerForDelete);
 		this.ShowToDoList();
+		ToDo td ;
 		list = (ListView) findViewById(R.id.ToDolistView);
+		ToDoManager TDM = ToDoManager.getInstance();
+		SQLiteAc AC = new SQLiteAc(this);
+		Cursor c = AC.getdatas();
+		if(c.getCount()!=0){
+			c.moveToFirst();
+			for(;;){
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HHmm");
+				Date date = new Date();
+				try {
+					date = sdf.parse(c.getString(2));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				final long dl = date.getTime();
+				td=new ToDo(c.getString(4), c.getString(1), dl, c.getString(0), c.getString(5), c.getFloat(3));
+				TDM.addUserToDo(td);
+				if(!c.moveToNext()){break;}
+			}
+		}
+
+		
+		
+
+		
 	}
 	
 

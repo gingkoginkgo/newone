@@ -12,7 +12,8 @@ public class ToDoManager {
     private ToDoManager() {  
     	AllToDoListSavedInHere = new ArrayList<ToDo>();	
     } 
-    public static ToDoManager getInstance() { 
+
+	public static ToDoManager getInstance() { 
         if (_instance == null) {
             _instance = new ToDoManager(); 
         }

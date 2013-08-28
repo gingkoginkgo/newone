@@ -20,6 +20,9 @@ import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
 
 public class NewAddToDo extends Activity {
 	private Button _Done;
@@ -28,6 +31,7 @@ public class NewAddToDo extends Activity {
 	private EditText _Deadline;
 	private EditText _Description;
 	private RatingBar _ratingbar;
+	private SQLiteAc AC = new SQLiteAc(this);
 	
 	private OnClickListener ListenerForDone = new OnClickListener() {
 		@Override
@@ -40,7 +44,7 @@ public class NewAddToDo extends Activity {
 			final String _tmpDeadlineStr = _Deadline.getText().toString();
 			final float _tmpRanting = _ratingbar.getRating();
 			
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HHmm");
 			Date date = new Date(System.currentTimeMillis());
 			try {
 				date = sdf.parse(_tmpDeadlineStr);
@@ -53,18 +57,18 @@ public class NewAddToDo extends Activity {
 			
 			final String _tmpDescription = _Description.getText().toString();
 			final httpService _hs = new httpService();
-			final String _url = "http://10.105.4.45:8080/ProtegeJSP/TestOWL.jsp";
+			final String _url = "http://yileibug.dyndns-ip.com:3310/ProtegeJSP/TestOWL.jsp";
 			
 			
 			
 			// Handler for httpservice thread_
 			final Handler mHandler = new Handler() { 
 			     public void handleMessage(Message msg) { 
-			 
 			 		String _targetPlace=  msg.getData().get("1").toString();
 			 		_targetPlace = _targetPlace.replace("\r\n", "");
 			 		_targetPlace = _targetPlace.replace(" ", "");
 					ToDo tmp = new ToDo(_tmpActionType, _tmpStartTime, _tmpDeadline, _tmpDescription, _targetPlace, _tmpRanting);
+					AC.incert(_tmpDescription, _tmpStartTime, _tmpDeadlineStr, _tmpRanting, _tmpActionType, _targetPlace);
 					ToDoManager.getInstance().addUserToDo(tmp);
 					Intent intent = new Intent(); 
 					intent.setClass(NewAddToDo.this,MainActivity.class); 

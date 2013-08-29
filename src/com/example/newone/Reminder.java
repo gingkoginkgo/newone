@@ -29,10 +29,10 @@ public class Reminder extends Activity {
  		//顯示地圖
 		//////////////////////////////////////////////////////////////////////
 	    setContentView(R.layout.showtargetmap);
-	    POI r = POIService.getInstance().getResultPOI();
-	    POIService.getInstance().setResultPOI(null);	//reset result
-	    recive_resultLat = ""+r.getLat();
-	    recive_resultLng = ""+r.getLng();
+	    //POI r = POIService.getInstance().getResultPOI();
+	    Bundle bundle = getIntent().getExtras();
+	    recive_resultLat = ""+bundle.getDouble("lat");
+	    recive_resultLng = ""+bundle.getDouble("lng");
 	    ShowTargeMapForUser = (WebView)findViewById(R.id.webview);
 	    WebSettings webSettings = ShowTargeMapForUser.getSettings();
 	    ShowTargeMapForUser.getSettings().setJavaScriptEnabled(true); // 開啟JAVASCRIPT功能

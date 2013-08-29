@@ -1,6 +1,7 @@
 package com.example.newone;
 
-public class ToDo implements Comparable{
+public class ToDo implements Comparable {
+	private int num;
 	private String ActionType;
 	private String StartTime;
 	private long DeadlineTime;
@@ -9,9 +10,11 @@ public class ToDo implements Comparable{
 	private float Priority_Rate;
 	private float _score;
 	private POI _poi;
-	
-	public ToDo(String _ActionType , String _StartTime , long _DeadlineTime , String _Description, String _Target_Place,Float _rate)
-	{
+
+	public ToDo(int _num, String _ActionType, String _StartTime,
+			long _DeadlineTime, String _Description, String _Target_Place,
+			Float _rate) {
+		num = _num;
 		ActionType = _ActionType;
 		StartTime = _StartTime;
 		DeadlineTime = _DeadlineTime;
@@ -21,46 +24,60 @@ public class ToDo implements Comparable{
 		_poi = null;
 		_score = _rate;
 	}
-	public String getActionType(){
+
+	public int getNum() {
+		return num;
+	}
+
+	public String getActionType() {
 		return ActionType;
 	}
-	public String getStartTime(){
+
+	public String getStartTime() {
 		return StartTime;
 	}
-	public long getDeadlineTime(){
+
+	public long getDeadlineTime() {
 		return DeadlineTime;
 	}
-	public String getDescription(){
+
+	public String getDescription() {
 		return Description;
 	}
-	public String getTarget_Place(){
+
+	public String getTarget_Place() {
 		return Target_Place;
 	}
-	public float getPriority_Rate(){
+
+	public float getPriority_Rate() {
 		return Priority_Rate;
 	}
-	public float getScore(){
+
+	public float getScore() {
 		return _score;
 	}
-	public void setScore(float s){
+
+	public void setScore(float s) {
 		_score = s;
 	}
 
 	@Override
 	public int compareTo(Object arg0) {
-		ToDo tmp = (ToDo)arg0;
-		float ret = tmp.getScore() -this._score ;
-		return (int)ret;
+		ToDo tmp = (ToDo) arg0;
+		float ret = tmp.getScore() - this._score;
+		return (int) ret;
 	}
-	public void resetScore(){
+
+	public void resetScore() {
 		_score = Priority_Rate;
 		_poi = null;
 	}
-	public void setIsByLoc(POI b){
+
+	public void setIsByLoc(POI b) {
 		_poi = b;
 	}
-	
-	public POI getPOI(){
+
+	public POI getPOI() {
 		return _poi;
 	}
 }

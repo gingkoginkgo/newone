@@ -57,7 +57,7 @@ public class NewAddToDo extends Activity {
 			
 			final String _tmpDescription = _Description.getText().toString();
 			final httpService _hs = new httpService();
-			final String _url = "http://yileibug.dyndns-ip.com:3310/ProtegeJSP/TestOWL.jsp";
+			final String _url = "http://yileibug.dyndns-ip.com:8080/ProtegeJSP/TestOWL.jsp";
 			
 			
 			
@@ -67,8 +67,11 @@ public class NewAddToDo extends Activity {
 			 		String _targetPlace=  msg.getData().get("1").toString();
 			 		_targetPlace = _targetPlace.replace("\r\n", "");
 			 		_targetPlace = _targetPlace.replace(" ", "");
-					ToDo tmp = new ToDo(_tmpActionType, _tmpStartTime, _tmpDeadline, _tmpDescription, _targetPlace, _tmpRanting);
-					AC.incert(_tmpDescription, _tmpStartTime, _tmpDeadlineStr, _tmpRanting, _tmpActionType, _targetPlace);
+			 		AC.incert(_tmpDescription, _tmpStartTime, _tmpDeadlineStr, _tmpRanting, _tmpActionType, _targetPlace);
+			 		Cursor c = AC.getdatas();
+			 		c.moveToFirst();
+			 		int i = c.getInt(0);
+					ToDo tmp = new ToDo(i, _tmpActionType, _tmpStartTime, _tmpDeadline, _tmpDescription, _targetPlace, _tmpRanting);
 					ToDoManager.getInstance().addUserToDo(tmp);
 					Intent intent = new Intent(); 
 					intent.setClass(NewAddToDo.this,MainActivity.class); 

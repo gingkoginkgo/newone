@@ -20,121 +20,114 @@ import android.widget.Toast;
 import android.content.Intent;
 import android.database.Cursor;
 
-public class MainActivity extends Activity{
+public class MainActivity extends Activity {
 
 	private Button _AddNew;
 	private Button _Delete;
 	private ListView list;
 	private ToDo recordTodo;
-	
+	private SQLiteAc AC = new SQLiteAc(this);
 
 	private OnClickListener ListenerForAddNew = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			Intent intent = new Intent(); 
-			intent.setClass(MainActivity.this,NewAddToDo.class); 
-			startActivity(intent); 
-			MainActivity.this.finish(); 
+			Intent intent = new Intent();
+			intent.setClass(MainActivity.this, NewAddToDo.class);
+			startActivity(intent);
+			MainActivity.this.finish();
 		}
-	}; 
-		
+	};
 
-	private OnClickListener ListenerForDelete = new OnClickListener(){
-		
+	private OnClickListener ListenerForDelete = new OnClickListener() {
+
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-		    ToDoManager.getInstance().deleteUserToDo(recordTodo);
-		    ShowToDoList();
+			AC.delete(recordTodo.getNum());
+			ToDoManager.getInstance().deleteUserToDo(recordTodo);
+			ShowToDoList();
 		}
 	};
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-	     Intent intent = new Intent(MainActivity.this, posChecker.class);
-	     startService(intent);
-	      
+		Intent intent = new Intent(MainActivity.this, posChecker.class);
+		startService(intent);
+
 		_AddNew = (Button) findViewById(R.id.AddNewbutton);
 		_Delete = (Button) findViewById(R.id.Deletebutton);
-		
-
-		
-		//��U
 		_AddNew.setOnClickListener(ListenerForAddNew);
 		_Delete.setOnClickListener(ListenerForDelete);
-		this.ShowToDoList();
-		ToDo td ;
+
+		
+		ToDo td;
 		list = (ListView) findViewById(R.id.ToDolistView);
 		ToDoManager TDM = ToDoManager.getInstance();
-		SQLiteAc AC = new SQLiteAc(this);
+		TDM.clearUserToDo();
+		
 		Cursor c = AC.getdatas();
-		if(c.getCount()!=0){
+		if (c.getCount() != 0) {
 			c.moveToFirst();
-			for(;;){
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HHmm");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HHmm");
+			for (int i = 0; i < c.getCount(); i++) {
+				c.moveToPosition(i);
 				Date date = new Date();
 				try {
-					date = sdf.parse(c.getString(2));
+					date = sdf.parse(c.getString(3));
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				final long dl = date.getTime();
-				td=new ToDo(c.getString(4), c.getString(1), dl, c.getString(0), c.getString(5), c.getFloat(3));
+				td = new ToDo(c.getInt(0), c.getString(5), c.getString(2), dl,
+						c.getString(1), c.getString(6), c.getFloat(4));
 				TDM.addUserToDo(td);
-				if(!c.moveToNext()){break;}
+				c.moveToNext();
 			}
 		}
-
-		
-		
-
-		
+		this.ShowToDoList();
 	}
-	
 
-	public void ShowToDoList(){
-
-		ArrayList<ToDo> showToDos = ToDoManager.getInstance().getUserToDo();	
-
-		ArrayList<String> _todoString = new ArrayList<String>();    
-		
-		//由分數大到小
-		for(ToDo t:showToDos){  
+	public void ShowToDoList() {
+		ArrayList<ToDo> showToDos = ToDoManager.getInstance().getUserToDo();
+		ArrayList<String> _todoString = new ArrayList<String>();
+		// 由分數大到小
+		for (ToDo t : showToDos) {
 			_todoString.add(t.getDescription());
 		}
-		
-		 list = (ListView) findViewById(R.id.ToDolistView);
-		 
+		list = (ListView) findViewById(R.id.ToDolistView);
+		list.setAdapter(new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, _todoString));
+		list.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				// TODO Auto-generated method stub
+				recordTodo = ToDoManager.getInstance().getUserToDo().get(arg2);
+				Toast.makeText(MainActivity.this, "ismSelected",
+						Toast.LENGTH_LONG).show();
+			}
 
-		 list.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, _todoString));
-		 
-		 list.setOnItemSelectedListener(new OnItemSelectedListener(){
-				@Override
-				public void onItemSelected(AdapterView<?> arg0, View arg1,
-						int arg2, long arg3) {
-					// TODO Auto-generated method stub
-					recordTodo = ToDoManager.getInstance().getUserToDo().get(arg2);
-					Toast.makeText( MainActivity.this, "ismSelected", Toast.LENGTH_LONG).show();
-				}
-				@Override
-				public void onNothingSelected(AdapterView<?> arg0) {
-				}});
-		 
-		 list.setOnItemClickListener(new OnItemClickListener(){
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-						long arg3) {
-					// TODO Auto-generated method stub
-					recordTodo = ToDoManager.getInstance().getUserToDo().get(arg2);
-					Toast.makeText( MainActivity.this, "isClick", Toast.LENGTH_LONG).show();
-					arg1.setSelected(true);
-				}});
-		 
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+			}
+		});
 
-		 list.setTextFilterEnabled(true);
+		list.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				// TODO Auto-generated method stub
+				recordTodo = ToDoManager.getInstance().getUserToDo().get(arg2);
+				Toast.makeText(MainActivity.this, "isClick", Toast.LENGTH_LONG)
+						.show();
+				arg1.setSelected(true);
+			}
+		});
+
+		list.setTextFilterEnabled(true);
 	}
 }

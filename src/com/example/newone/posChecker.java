@@ -156,17 +156,16 @@ public class posChecker extends Service{
            ArrayList<ToDo> tmpl = ToDoManager.getInstance().getUserToDo();
            if(tmpl.size() == 0)
         	   return;
-           for(int i =0;i<tmpl.size();i++){
+           for(int i =0;i<tmpl.size()&& i<3 ;i++){
         	   if(tmpl.get(i).getPOI()!=null){
         		   POIService.getInstance().setResultPOI(tmpl.get(i).getPOI());
-        		   gNotification(tmpl.get(i).getPOI().getName(),"Near :",tmpl.get(i).getPOI().getName(),i);
+        		   gNotification(tmpl.get(i).getPOI().getName(),"靠近地點",tmpl.get(i).getPOI().getName()+"-"+tmpl.get(i).getDescription(),i);
         	   }
         	   else{
-        		   tNotification(tmpl.get(i).getDescription(), "時間要到了", String.valueOf(tmpl.get(i).getDeadlineTime()), i);
+        		   tNotification(tmpl.get(i).getDescription(), "提醒事項", tmpl.get(i).getDescription(), i);
         	   }
            }
            handler.postDelayed(checker, delaySec*1000);
         }
     };
-        
 }
